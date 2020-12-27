@@ -7,16 +7,20 @@ import (
 
 func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
 	if len(command) == 1{
-		session.ChannelMessageSend(message.ChannelID, "``` Print usage.```")
+		session.ChannelMessageSend(message.ChannelID, Usage())
 		return
 	}
 
 	switch command[1] {
 	case "username", "password", "domain", "email":
-		if len(command) != 3 || len(command) != 4 {
-			session.ChannelMessageSend(message.ChannelID, "``` Print usage.```")
+		if len(command) != 3 && len(command) != 4 {
+			session.ChannelMessageSend(message.ChannelID, Usage())
 			return
 		}
+		if len(command) == 4 {
+			
+		}
+
 
 		query := fmt.Sprintf("%s:%s", command[1], command[2])
 		result, err := getQueryData(query)
@@ -34,12 +38,8 @@ func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate,
 	default:
 		return
 	}
+}
 
-
-
-
-
-
-
+func execHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
 
 }
