@@ -6,6 +6,11 @@ import (
 )
 
 func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
+	if len(command) == 1{
+		session.ChannelMessageSend(message.ChannelID, "``` Print usage.```")
+		return
+	}
+
 	switch command[1] {
 	case "username", "password", "domain", "email":
 		if len(command) != 3 || len(command) != 4 {

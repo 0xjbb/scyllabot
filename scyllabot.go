@@ -43,7 +43,7 @@ func main() {
 	<-sc
 
 	// Cleanly close down the Discord session.
-	discord.Close()
+	_ = discord.Close()
 }
 
 func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate) {
@@ -67,7 +67,12 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 		scyllaHandler(session, message, command)
 		break
 	case Prefix + "0day_is_gay":
-
+		session.ChannelMessageSend(message.ChannelID, "``` I know, so is Briskets. :kekw: ```")
+		break
+	case Prefix + "exec":
+		if message.Author.ID == "309688166929924096" {
+			//execHandler(session,message,command)
+		}
 		break
 	}
 }

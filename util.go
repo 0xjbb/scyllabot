@@ -7,6 +7,7 @@ import (
 
 // just gets data from ze api
 func getQueryData(query string) ([]scyllago.Result, error) {
+	// todo change this.
 	size := 2
 	start := 0
 
