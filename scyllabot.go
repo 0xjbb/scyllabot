@@ -61,9 +61,8 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 	}
 
 	command := strings.Split(message.Content, " ")
-	fmt.Println(command[0])
 
-	switch(command[0]){
+	switch command[0] {
 	case Prefix + "scylla":
 		scyllaHandler(session, message, command)
 		break
