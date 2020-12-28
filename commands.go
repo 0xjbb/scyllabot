@@ -8,24 +8,27 @@ import (
 )
 
 func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
-	if len(command) == 1{
+	if len(command) == 1 || len(command) == 2{
 		session.ChannelMessageSend(message.ChannelID, Usage())
 		return
 	}
 
+	if len(command) > 5 {
+		command = command[:5]
+	}
+
 	switch command[1] {
 	case "username", "password", "domain", "email":
-		if len(command) != 3 && len(command) != 4 {
-			session.ChannelMessageSend(message.ChannelID, Usage())
-			return
-		}
 		start := 0
 		size := 5
 
 		if len(command) == 4 {
-			start, _ = strconv.Atoi(command[3])
+			size, _ = strconv.Atoi(command[3])
 		}
 
+		if len(command) == 5 {
+			start, _ = strconv.Atoi(command[3])
+		}
 		query := fmt.Sprintf("%s:%s", command[1], command[2])
 		result, err := scyllago.Query(query, size, start)
 

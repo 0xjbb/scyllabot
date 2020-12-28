@@ -13,5 +13,6 @@ func buildMessage(u string, p string, e string, d string) string {
 
 func Usage() string{
 	// change to embed or smth.
-	return "```\tUsage:\n $scylla <option> <search query>\n\tOptions:\n username\npassword\ndomain\nemail\n\tExample:\n$scylla username fred\n```"
+	// @TODO fix this crap
+	return "```Usage:\n\t$scylla <option> <search query> *<size> *<start>\nOptions:\n\tusername\n\tpassword\n\tdomain\n\temail\nExample:\n\t$scylla username fred\nNote:\n\t size and start are optional, defaults are 5,0\nMax size is 20. use the start position if you need more.```"
 }
