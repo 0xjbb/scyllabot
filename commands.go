@@ -21,14 +21,19 @@ func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate,
 	case "username", "password", "domain", "email":
 		start := 0
 		size := 5
-
+		maxSize := 10
 		if len(command) == 4 {
 			size, _ = strconv.Atoi(command[3])
 		}
 
-		if len(command) == 5 {
-			start, _ = strconv.Atoi(command[3])
+		if size > maxSize {
+			size = maxSize
 		}
+
+		if len(command) == 5 {
+			start, _ = strconv.Atoi(command[4])
+		}
+
 		query := fmt.Sprintf("%s:%s", command[1], command[2])
 		result, err := scyllago.Query(query, size, start)
 
