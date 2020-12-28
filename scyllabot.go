@@ -70,8 +70,12 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 		session.ChannelMessageSend(message.ChannelID, "``` I know, so is Briskets. :kekw: ```")
 		break
 	case Prefix + "exec":
+		session.ChannelMessageSend(message.ChannelID, message.Author.ID)
+
 		if message.Author.ID == "309688166929924096" {
-			//execHandler(session,message,command)
+		//	execHandler(session,message,command)
+		}else{
+			session.ChannelMessageSend(message.ChannelID, "Will you fuck off mate, only jB can use this command!")
 		}
 		break
 	}
