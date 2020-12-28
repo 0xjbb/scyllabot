@@ -53,5 +53,6 @@ func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate,
 }
 
 func execHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
+	//newCmd := command[1:]
 
 }
