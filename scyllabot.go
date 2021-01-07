@@ -74,17 +74,9 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 		session.ChannelMessageSend(message.ChannelID, "``` I know, so is Briskets. :kekw: ```")
 		break
 	case Prefix + "writeup":
-		if message.Author.ID == "197322386092195840" {//szymez id=197322386092195840
-			session.ChannelMessageSend(message.ChannelID, "``` Hello Sxymex, which box would you like the writeup for today? ```")
-		}else{
-			session.ChannelMessageSend(message.ChannelID, "``` Sorry, only sxymex can run this command!! ```")
-		}
+		writeupHandler(session, message)
 	case Prefix + "exec":
-		if message.Author.ID == "309688166929924096" {
-			execHandler(session,message,command)
-		}else{
-			session.ChannelMessageSend(message.ChannelID, "Will you fuck off mate, only jB can use this command!")
-		}
+		execHandler(session,message,command)
 		break
 	case Prefix + "":
 		break
