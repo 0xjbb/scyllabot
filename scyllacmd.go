@@ -39,7 +39,6 @@ func (sc *ScyllaCfg) Handle(command []string){
 	size := sFlag.Int("size", sc.size, "Number of results to return (max 10)")
 	start := sFlag.Int("start", sc.start, "Result starting position.")
 
-
 	err := sFlag.Parse(command)
 
 	if err != nil {
