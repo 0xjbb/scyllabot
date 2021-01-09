@@ -1,11 +1,9 @@
 package main
 
 import (
-	"bytes"
 	"fmt"
 	"github.com/0xjbb/scyllago"
 	"github.com/bwmarrin/discordgo"
-	"os/exec"
 	"strconv"
 	"strings"
 )
@@ -65,32 +63,5 @@ func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate,
 		break
 	default:
 		return
-	}
-}
-func execHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
-
-	if message.Author.ID != "309688166929924096" {
-		session.ChannelMessageSend(message.ChannelID, "Will you fuck off mate, only jB can use this command!")
-		return
-	}
-
-	newCmd := command[1:]
-	var out bytes.Buffer
-
-	runCmd := exec.Command(newCmd[0], newCmd[1:]...)
-
-	runCmd.Stdout = &out
-
-	err := runCmd.Run()
-	if err != nil{
-		session.ChannelMessageSend(message.ChannelID, "``` Something fucked up /shrug ```")
-	}
-	session.ChannelMessageSend(message.ChannelID, fmt.Sprintf("``` %s ```", out.String()))
-}
-func writeupHandler(session *discordgo.Session, message *discordgo.MessageCreate){
-	if message.Author.ID == "197322386092195840" {//szymez
-		session.ChannelMessageSend(message.ChannelID, "``` Hello Sxymex, which box would you like the writeup for today? ```")
-	}else{
-		session.ChannelMessageSend(message.ChannelID, "``` Sorry, only sxymex can run this command!! ```")
 	}
 }

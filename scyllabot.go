@@ -69,16 +69,10 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 	switch command[0] {
 	case Prefix + "scylla":
 		scyllaHandler(session, message, command)
-		break
-	case Prefix + "0day_is_gay":
-		session.ChannelMessageSend(message.ChannelID, "``` I know, so is Briskets. :kekw: ```")
-		break
-	case Prefix + "writeup":
-		writeupHandler(session, message)
-	case Prefix + "exec":
-		execHandler(session,message,command)
-		break
-	case Prefix + "":
+		/**
+		scylla := ScyllaNew(session, message, size int, start int, maxSize int)
+		scylla.Handle(command[1:])
+		 */
 		break
 	}
 }
