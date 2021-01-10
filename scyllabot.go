@@ -14,7 +14,6 @@ import (
 var (
 	Token  string
 	Prefix string = "$"
-
 	size int = 5
 	start int = 0
 	maxSize int = 10

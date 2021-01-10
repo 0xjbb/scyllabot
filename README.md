@@ -22,10 +22,25 @@ Build the project.
 go build
 ```
 
-Running with your token
-```bash
-./scyllabot -t <your discord token here>
+Create a config.json
+
+```json
+{
+    "token": "",
+    "prefix": "$",
+    "channelID": "",
+    "size": 5,
+    "start": 0,
+    "maxSize": 10
+}
 ```
+
+- token is your discord bot token
+- prefix is the command prefix you wish to use ( $scylla for the above example )
+- channelID the ID of the channel you wish for it to list/respond in. (MUST BE SET)
+- size default value for the number of results to return
+- start default starting position
+- maxSize default maximum amount of results returned (I'd advise to keep it as 10.)
 
 ### Bugs etc
 
