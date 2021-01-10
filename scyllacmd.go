@@ -45,7 +45,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 		fmt.Println(err)
 	}
 
-	var test map[string]string
+	test := make(map[string]string, 6)
 
 	test["username"] = *username
 	test["password"] = *password
