@@ -1,18 +1,6 @@
 package main
 
-import (
-	"fmt"
-	"github.com/0xjbb/scyllago"
-	"github.com/bwmarrin/discordgo"
-	"strconv"
-	"strings"
-)
-
-var (
-	size int = 5
-	start int = 0
-	maxSize int = 10
-)
+/*
 
 func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate, command []string){
 	if len(command) == 1 || len(command) == 2{
@@ -64,4 +52,4 @@ func scyllaHandler(session *discordgo.Session, message *discordgo.MessageCreate,
 	default:
 		return
 	}
-}
+}*/

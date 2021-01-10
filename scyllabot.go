@@ -14,6 +14,10 @@ import (
 var (
 	Token  string
 	Prefix string = "$"
+
+	size int = 5
+	start int = 0
+	maxSize int = 10
 )
 
 func init() {
@@ -68,11 +72,13 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 
 	switch command[0] {
 	case Prefix + "scylla":
-		scyllaHandler(session, message, command)
-		/**
-		scylla := ScyllaNew(session, message, size int, start int, maxSize int)
+		//scyllaHandler(session, message, command)
+
+		// set defaults.
+		fmt.Println("Scylla")
+		scylla := ScyllaNew(session, message, size, start , maxSize )
 		scylla.Handle(command[1:])
-		 */
+
 		break
 	}
 }
