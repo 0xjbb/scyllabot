@@ -72,13 +72,11 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 
 	switch command[0] {
 	case Prefix + "scylla":
-		//scyllaHandler(session, message, command)
-
-		// set defaults.
-		fmt.Println("Scylla")
-		scylla := ScyllaNew(session, message, size, start , maxSize )
+		scylla := ScyllaNew(session, message, size, start, maxSize)
 		scylla.Handle(command[1:])
-
 		break
+	default:
+		break
+
 	}
 }

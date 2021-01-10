@@ -29,9 +29,9 @@ func ScyllaNew(session *discordgo.Session, message *discordgo.MessageCreate, siz
 
 // maybe break this function up into a few smaller funcs
 func (sc *ScyllaCfg) Handle(command []string){
-	sFlag := flag.NewFlagSet("Scylla", flag.ContinueOnError)
+	sFlag := flag.NewFlagSet("scylla", flag.ContinueOnError)
 	username := sFlag.String("user", "", "Username you wish to search")
-	password := sFlag.String("passw", "", "Password you wish to search")
+	password := sFlag.String("password", "", "Password you wish to search")
 	email := sFlag.String("email", "", "Email you wish to search")
 	domain := sFlag.String("url", "", "Domain you wish to search")
 	ip := sFlag.String("ip", "", "IP address you wish to search")
@@ -43,8 +43,15 @@ func (sc *ScyllaCfg) Handle(command []string){
 
 	err := sFlag.Parse(command)
 
+	// find out why the flag library doesn't already do this
+	if *username == "" && *password == "" && *email == "" && *ip == "" && *domain == "" && *passhash == ""{
+		sFlag.Usage()
+		return
+	}
+
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("Parse error: ", err)
+		return
 	}
 
 	qVars := make(map[string]string, 6)
@@ -72,7 +79,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 	}
 
 	if query == ""{
-		// print usuage I guess.
+		sc.usage(sFlag)
 		return
 	}
 
@@ -81,14 +88,42 @@ func (sc *ScyllaCfg) Handle(command []string){
 	result, err := scyllago.Query(query, *size, *start)
 
 	if err != nil {
-		fmt.Println(err) // do this better
+		fmt.Println("ScyllaGo Error: ",err) // do this better
 		// send message bask to user.
 		return
 	}
 
-	for _,  val := range result{
-		fmt.Println(val)// send to channel.
+	if len(result) == 0{
+		sc.SendEmbed("Error", "No results found!")
+		return
 	}
+
+	// @TODO convert to function
+	messageEmbed := discordgo.MessageEmbed{
+		Title: "__ScyllaBot__",
+		Fields: func() []*discordgo.MessageEmbedField {
+			var embedFields []*discordgo.MessageEmbedField
+			for _, values := range result {
+				currentEmbed := discordgo.MessageEmbedField{
+					Name:  "------------------------------------",
+					Value: fmt.Sprintf("IP: %s\nUsername: %s\nPassword: %s\nPasshash: %s\nEmail: %s\nDomain: %s",
+						values.Fields.Ip,
+						values.Fields.Username,
+						values.Fields.Password,
+						values.Fields.Passhash,
+						values.Fields.Email,
+						values.Fields.Domain,
+						),
+				}
+
+				embedFields = append(embedFields, &currentEmbed)
+			}
+			return embedFields
+		}(),
+	}
+	sc.session.ChannelMessageSendEmbed(sc.message.ChannelID, &messageEmbed)
+
+
 }
 
 // send usage to channel instead of stdout/err
@@ -98,11 +133,10 @@ func (sc *ScyllaCfg) usage(fs *flag.FlagSet) func(){
 
 	return func() {
 		fs.PrintDefaults()
-		//sc.session.ChannelMessageSend(sc.message.ChannelID, fmt.Sprintf("``` %s ```", buffer.String()) )
 		sc.SendEmbed("Usage: ", fmt.Sprintf("``` %s ```", buffer.String()))
 	}
 }
-
+// @todo rewrite.
 func (sc *ScyllaCfg) SendEmbed(name string, value string){
 	messageEmbed := discordgo.MessageEmbed{
 		Title: "__ScyllaBot__",
