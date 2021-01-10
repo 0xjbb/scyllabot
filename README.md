@@ -42,6 +42,12 @@ Create a config.json
 - start default starting position
 - maxSize default maximum amount of results returned (I'd advise to keep it as 10.)
 
+Now run ScyllaBot with your config.json
+
+```bash
+./scyllabot -c ./config.json
+```
+
 ### Bugs etc
 
 There's a good chance of bugs, I will actively patch as I find them but if you find one, create an issue :)

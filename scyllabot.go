@@ -18,9 +18,15 @@ var (
 	start int = 0
 	maxSize int = 10
 )
+type Config struct{
+	Channel string `json:"channelID"`
+
+}
+
+
 
 func init() {
-	flag.StringVar(&Token, "t", "", "Bot Token")
+	flag.StringVar(&Token, "c", "config.json", "Config file")
 	flag.Parse()
 }
 
