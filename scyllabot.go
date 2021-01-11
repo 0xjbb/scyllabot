@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"github.com/bwmarrin/discordgo"
@@ -12,31 +13,42 @@ import (
 )
 
 var (
-	Token  string
-	Prefix string = "$"
-	size int = 5
-	start int = 0
-	maxSize int = 10
+	ConfigFileName  string
+	config Config
 )
 
 type Config struct{
 	Channel string `json:"channelID"`
 	Token string `json:"token"`
 	Prefix string `json:"prefix"`
-	Size string `json:"size"`
-	Start string `json:"start"`
-	MaxSize string `json:"maxSize"`
+	Size int `json:"size"`
+	Start int `json:"start"`
+	MaxSize int `json:"maxSize"`
 }
 
-
-
 func init() {
-	flag.StringVar(&Token, "c", "config.json", "Config file")
+	flag.StringVar(&ConfigFileName, "c", "config.json", "Config file")
 	flag.Parse()
 }
 
 func main() {
-	discord, err := discordgo.New("Bot " + Token)
+	// @todo Move this to a func.
+	configFile, err := os.Open(ConfigFileName)
+
+	if err != nil{
+		fmt.Println(err)
+		return
+	}
+	defer configFile.Close()
+
+	decoder := json.NewDecoder(configFile)
+	err = decoder.Decode(&config)
+
+	if err != nil{
+		fmt.Println(err)
+	}
+
+	discord, err := discordgo.New("Bot " + config.Token)
 
 	if err != nil {
 		log.Fatal("error creating discord session, ", err)
@@ -70,23 +82,25 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 		return
 	}
 	// only see messages with out prefix.
-	if !strings.HasPrefix(message.Content, Prefix) {
+	if !strings.HasPrefix(message.Content, config.Prefix) {
 		return
 	}
-	//793522452952514620 == chanid for PE, other is my testing server
-	if message.ChannelID != "793522452952514620" && message.ChannelID != "792923886185611285"{
+
+	// @TODO change to multiple channelIDs
+	if message.ChannelID != config.Channel{
 		return
 	}
 
 	command := strings.Split(message.Content, " ")
 
 	switch command[0] {
-	case Prefix + "scylla":
-		scylla := ScyllaNew(session, message, size, start, maxSize)
+	case config.Prefix + "scylla":
+		scylla := ScyllaNew(session, message, config.Size, config.Start, config.MaxSize)
 		scylla.Handle(command[1:])
 		break
 	default:
 		break
-
 	}
 }
+
+func ParseConfig(){}
