@@ -112,8 +112,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 						values.Fields.Password,
 						values.Fields.Passhash,
 						values.Fields.Email,
-						values.Fields.Domain,
-						),
+						values.Fields.Domain),
 				}
 
 				embedFields = append(embedFields, &currentEmbed)
@@ -122,8 +121,6 @@ func (sc *ScyllaCfg) Handle(command []string){
 		}(),
 	}
 	sc.session.ChannelMessageSendEmbed(sc.message.ChannelID, &messageEmbed)
-
-
 }
 
 // send usage to channel instead of stdout/err
@@ -136,6 +133,7 @@ func (sc *ScyllaCfg) usage(fs *flag.FlagSet) func(){
 		sc.SendEmbed("Usage: ", fmt.Sprintf("``` %s ```", buffer.String()))
 	}
 }
+
 // @todo rewrite.
 func (sc *ScyllaCfg) SendEmbed(name string, value string){
 	messageEmbed := discordgo.MessageEmbed{

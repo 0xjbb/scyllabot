@@ -18,9 +18,14 @@ var (
 	start int = 0
 	maxSize int = 10
 )
+
 type Config struct{
 	Channel string `json:"channelID"`
-
+	Token string `json:"token"`
+	Prefix string `json:"prefix"`
+	Size string `json:"size"`
+	Start string `json:"start"`
+	MaxSize string `json:"maxSize"`
 }
 
 
