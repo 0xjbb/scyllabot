@@ -64,7 +64,8 @@ func (sc *ScyllaCfg) Handle(command []string){
 	qVars["passhash"] = *passhash
 
 	query := ""
-
+	// @todo figure out wtf is going ono here, when using multple options shit breaks
+	// 		 maybe url encode, check API.
 	for key,  val := range qVars{
 		if val == ""{ // Skip any that don't have a string
 			continue

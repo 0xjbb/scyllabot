@@ -18,7 +18,7 @@ var (
 )
 
 type Config struct{
-	Channel string `json:"channelID"`
+	Channel []string `json:"channelID"`
 	Token string `json:"token"`
 	Prefix string `json:"prefix"`
 	Size int `json:"size"`
@@ -88,9 +88,10 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 		return
 	}
 
-	// @TODO change to multiple channelIDs
-	if message.ChannelID != config.Channel{
-		return
+	for _, chanid := range config.Channel{
+		if message.ChannelID != chanid{
+			return
+		}
 	}
 
 	command := strings.Split(message.Content, " ")

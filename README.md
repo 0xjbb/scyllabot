@@ -28,7 +28,7 @@ Create a config.json
 {
     "token": "",
     "prefix": "$",
-    "channelID": "",
+    "channelID": ["", ""],
     "size": 5,
     "start": 0,
     "maxSize": 10
