@@ -30,7 +30,9 @@ func init() {
 	flag.StringVar(&ConfigFileName, "c", "config.json", "Config file")
 	flag.Parse()
 }
-
+/*
+	@TODO fix the error handling messages, change to log and use the log library to write to a file.
+*/
 func main() {
 	// @todo Move this to a func.
 	configFile, err := os.Open(ConfigFileName)
