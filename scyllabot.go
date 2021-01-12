@@ -34,7 +34,7 @@ func init() {
 	@TODO fix the error handling messages, change to log and use the log library to write to a file.
 */
 func main() {
-	// @todo Move this to a func.
+	// @todo Move this to a func.{
 	configFile, err := os.Open(ConfigFileName)
 
 	if err != nil{
@@ -49,7 +49,7 @@ func main() {
 	if err != nil{
 		fmt.Println(err)
 	}
-
+	// to here }
 	discord, err := discordgo.New("Bot " + config.Token)
 
 	if err != nil {
