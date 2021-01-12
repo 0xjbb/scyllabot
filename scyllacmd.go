@@ -81,7 +81,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 	}
 
 	if query == ""{
-		sc.usage(sFlag)
+		//sc.usage(sFlag)
 		return
 	}
 
@@ -134,7 +134,7 @@ func (sc *ScyllaCfg) usage(fs *flag.FlagSet) func(){
 
 	return func() {
 		fs.PrintDefaults()
-		sc.SendEmbed("Usage: ", fmt.Sprintf("``` %s ```", buffer.String()))
+		sc.SendEmbed("Usage: ", fmt.Sprintf("```%s ```", buffer.String()))
 	}
 }
 
