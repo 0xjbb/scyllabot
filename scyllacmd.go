@@ -85,8 +85,6 @@ func (sc *ScyllaCfg) Handle(command []string){
 		return
 	}
 
-	fmt.Println(query)
-
 	result, err := scyllago.Query(query, *size, *start)
 
 	if err != nil {
