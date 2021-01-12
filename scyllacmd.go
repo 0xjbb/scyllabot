@@ -134,7 +134,7 @@ func (sc *ScyllaCfg) usage(fs *flag.FlagSet) func(){
 
 	return func() {
 		fs.PrintDefaults()
-		sc.SendEmbed("Usage:\n", fmt.Sprintf("```\n%s ```", buffer.String()))
+		sc.SendEmbed("Usage:", fmt.Sprintf("```\n%s ```", buffer.String()))
 		return
 	}
 }
