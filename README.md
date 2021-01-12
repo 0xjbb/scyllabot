@@ -26,9 +26,9 @@ Create a config.json
 
 ```json
 {
-    "token": "",
+    "token": "<your bot token here>",
     "prefix": "$",
-    "channelID": ["", ""],
+    "channelID": ["<your channel ID here>"],
     "size": 5,
     "start": 0,
     "maxSize": 10

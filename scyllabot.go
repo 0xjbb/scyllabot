@@ -87,7 +87,7 @@ func messageHandler(session *discordgo.Session, message *discordgo.MessageCreate
 	if !strings.HasPrefix(message.Content, config.Prefix) {
 		return
 	}
-
+	// @TODO, if no channel is given then just listen in all channels.
 	for _, chanid := range config.Channel{
 		if message.ChannelID != chanid{
 			return
