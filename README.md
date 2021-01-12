@@ -1,6 +1,6 @@
 # ScyllaBot
 
-A Simple discord bot to retrieve data from Scylla using scyllago and discordgo
+A Simple discord bot to retrieve data from [Scylla.sh](https://scylla.sh/) using [scyllago](https://github.com/0xjbb/scyllago) and [discordgo](https://github.com/bwmarrin/discordgo)
 
 ## Getting Started
 
