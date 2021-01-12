@@ -32,6 +32,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 	sFlag := flag.NewFlagSet("scylla", flag.ContinueOnError)
 	username := sFlag.String("user", "", "Username you wish to search")
 	password := sFlag.String("password", "", "Password you wish to search")
+	name := sFlag.String("name","", "First/Last name you wish to search")
 	email := sFlag.String("email", "", "Email you wish to search")
 	domain := sFlag.String("url", "", "Domain you wish to search")
 	ip := sFlag.String("ip", "", "IP address you wish to search")
@@ -44,7 +45,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 	err := sFlag.Parse(command)
 
 	// find out why the flag library doesn't already do this
-	if *username == "" && *password == "" && *email == "" && *ip == "" && *domain == "" && *passhash == ""{
+	if *username == "" && *password == "" && *email == "" && *ip == "" && *domain == "" && *passhash == "" && *name == ""{
 		sFlag.Usage()
 		return
 	}
@@ -58,6 +59,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 
 	qVars["username"] = *username
 	qVars["password"] = *password
+	qVars["name"] = *name
 	qVars["email"] = *email
 	qVars["domain"] = *domain
 	qVars["ip"] = *ip
@@ -76,7 +78,7 @@ func (sc *ScyllaCfg) Handle(command []string){
 			continue
 		}
 
-		query = fmt.Sprintf(" & %s:%s", key, val)
+		query = fmt.Sprintf("%s+%%26+%s:%s",query, key, val)
 	}
 
 	if query == ""{
