@@ -109,8 +109,10 @@ func (sc *ScyllaCfg) Handle(command []string){
 			for _, values := range result {
 				currentEmbed := discordgo.MessageEmbedField{
 					Name:  "------------------------------------",
-					Value: fmt.Sprintf("IP: %s\nUsername: %s\nPassword: %s\nPasshash: %s\nEmail: %s\nDomain: %s",
+					// @TODO fix this shit.
+					Value: fmt.Sprintf("IP: %s\nName: %s\nUsername: %s\nPassword: %s\nPasshash: %s\nEmail: %s\nDomain: %s",
 						values.Fields.Ip,
+						values.Fields.Name,
 						values.Fields.Username,
 						values.Fields.Password,
 						values.Fields.Passhash,
